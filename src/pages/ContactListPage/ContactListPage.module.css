@@ -32,3 +32,9 @@
     opacity: .7;
     display: none;
 }
+
+@media (min-width: 480px) {
+    .contact__email {
+        display: block;
+    }
+}
