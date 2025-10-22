@@ -1,0 +1,88 @@
+.toolbar {
+    width: 95%;
+    max-width: 1000px;
+    margin: 20px auto 0;
+    display: flex;
+    justify-content: end;
+    position: relative;
+    background-color: #202028;
+}
+
+.actionMenuButton {
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.actionMenuButton:hover {
+    transform: scale(1.2);
+}
+
+.itemsMenu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 200px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: .4s;
+    padding: 0 10px;
+}
+
+.itemMenu {
+    padding: 12px 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px 0;
+    border-radius: 8px;
+    transition: .2s;
+    font-size: 1rem;
+}
+
+.itemMenu:first-child {
+    margin-top: 15px;
+}
+
+.itemMenu:last-child {
+    margin-bottom: 15px;
+}
+
+.itemMenu:hover {
+    background-color: #5088b82a;
+}
+
+.toolbar button{
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .toolbar{
+        justify-content: start;
+    }
+    .actionMenuButton{
+        display: none;
+    }
+    .itemsMenu{
+        display: none;
+    }
+    .toolbar button{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        margin-right: 10px;
+        background-color: #6088b8;
+        color: #f0f0f0;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .toolbar button:hover{
+        transform: scale(1.1);
+        background-color: #6088b8e8;
+    }
+}
