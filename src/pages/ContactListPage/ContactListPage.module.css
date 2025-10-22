@@ -1,0 +1,40 @@
+.contacts {
+    width: 95%;
+    max-width: 1000px;
+    margin: 80px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    border: 2px solid #5088b8;
+    border-radius: 20px;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    border: 3px solid #5088b8;
+    font-weight: bold;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 1rem;
+}
+
+.contact:hover {
+    background-color: #c0b8c0;
+}
+
+.contact__email {
+    opacity: .7;
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .contact__email {
+        display: block;
+    }
+}

@@ -1,6 +1,10 @@
+import ContactListPage from "./pages/ContactListPage/ContactListPage"
+
 const App = () => {
   return (
-    <div>App</div>
+    <>
+      <ContactListPage />
+    </>
   )
 }
 
