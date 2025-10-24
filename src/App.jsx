@@ -1,9 +1,13 @@
+import { useState } from "react"
+import ContactListPage from "./pages/ContactListPage/ContactListPage"
 import AddContactPage from "./pages/AddContactPage/AddContactPage"
 
 const App = () => {
+  const [currentPage, setCurrentPage] = useState("contact-list");
   return (
     <>
-      <AddContactPage />
+      {currentPage === "contact-list" && <ContactListPage />}
+      {currentPage === "add-contact" && <AddContactPage />}
     </>
   )
 }
