@@ -12,14 +12,14 @@ const App = () => {
       phone: "1111",
       job: "",
     },
-        {
+    {
       id: 2,
       name: "contact2",
       email: "contact2@gmail.com",
       phone: "2222",
       job: "",
     },
-        {
+    {
       id: 3,
       name: "contact3",
       email: "contact3@gmail.com",
@@ -30,7 +30,7 @@ const App = () => {
   return (
     <>
       {currentPage === "contact-list" && (
-        <ContactListPage setCurrentPage={setCurrentPage} />
+        <ContactListPage setCurrentPage={setCurrentPage} contacts={contacts} />
       )}
       {currentPage === "add-contact" && (
         <AddContactPage setCurrentPage={setCurrentPage} />
