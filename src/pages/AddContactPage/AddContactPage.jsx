@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./AddContactPage.module.css";
-const AddContactPage = ({ setCurrentPage, setContacts }) => {
+const AddContactPage = ({ setCurrentPage, setContacts, showToast }) => {
   const [isFocus, setIsFocus] = useState(false);
   const [formValues, setFormValues] = useState({
     name: "",
@@ -18,7 +18,7 @@ const AddContactPage = ({ setCurrentPage, setContacts }) => {
 
   const saveHandler = () => {
     setFormErrors(validate(formValues));
-    setIsSave(true)
+    setIsSave(true);
   };
 
   const focusHandler = () => {
@@ -38,9 +38,10 @@ const AddContactPage = ({ setCurrentPage, setContacts }) => {
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSave) {
-    const id = Date.now();
+      const id = Date.now();
       setContacts((contacts) => [...contacts, { id: id, ...formValues }]);
       setCurrentPage("contact-list");
+      showToast("Contact added successfully", "success")
     }
   }, [formErrors]);
 
@@ -54,7 +55,7 @@ const AddContactPage = ({ setCurrentPage, setContacts }) => {
       errors.email = "Email is required";
     } else if (!regex.test(values.email)) {
       errors.email = "Invalid email";
-    } 
+    }
     return errors;
   };
   return (
