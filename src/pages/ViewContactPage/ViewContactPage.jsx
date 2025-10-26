@@ -1,6 +1,13 @@
 import styles from "./ViewContactPage.module.css";
-const ViewContactPage = ({ id, contacts, setCurrentPage }) => {
-  const contact = contacts.find(contact => contact.id == id)
+const ViewContactPage = ({ id, contacts, setCurrentPage, setContacts, showToast }) => {
+  const contact = contacts.find(contact => contact.id == id);
+
+  const deleteHandler = () => {
+    setContacts(contacts.filter(contact => contact.id != id))
+    setCurrentPage("contact-list");
+    showToast("Contact deleted", "success")
+
+  }
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -14,7 +21,7 @@ const ViewContactPage = ({ id, contacts, setCurrentPage }) => {
         <li>Job: {contact.job}</li>
       </ul>
       <div className={styles.footer}>
-        <button>Delete</button>
+        <button onClick={deleteHandler}>Delete</button>
       </div>
     </div>
   );

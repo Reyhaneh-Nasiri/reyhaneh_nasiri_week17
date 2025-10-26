@@ -77,7 +77,7 @@ const App = () => {
         />
       )}
 
-      {currentPage === "view-contact" && <ViewContactPage id={viewId} contacts={contacts} setCurrentPage={setCurrentPage} />}
+      {currentPage === "view-contact" && <ViewContactPage id={viewId} contacts={contacts} setCurrentPage={setCurrentPage} setContacts={setContacts} showToast={showToast}  />}
     </>
   );
 };
