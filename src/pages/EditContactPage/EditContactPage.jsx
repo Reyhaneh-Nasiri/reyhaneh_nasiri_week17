@@ -4,7 +4,7 @@ const EditContactPage = ({setCurrentPage}) => {
   return (
     <div className={styles.container}>
       <div className={styles.form}>
-        <h3 className={styles.form__title}>Add Contact</h3>
+        <h3 className={styles.form__title}>Edit Contact</h3>
         <div className={styles.form__inputs}>
           <div className={styles.form__input}>
             <label htmlFor="name" className={styles.form__label}>
