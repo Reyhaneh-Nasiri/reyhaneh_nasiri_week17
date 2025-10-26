@@ -1,7 +1,7 @@
 import SearchBox from "@/components/SearchBox/SearchBox";
 import styles from "./ContactListPage.module.css";
 import ContactListToolbar from "@/components/ContactListToolbar/ContactListToolbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const ContactListPage = ({
   setCurrentPage,
   contacts,
@@ -10,7 +10,15 @@ const ContactListPage = ({
   search,
   showToast,
   showModal,
+  isOk,
 }) => {
+  useEffect(() => {
+    if (isOk) {
+      setContacts(contacts.filter((item) => !selectedItems.includes(item.id)));
+      showToast(`${selectedItems.length} contact(s) deleted`, "success");
+      setSelectedItems([]);
+    }
+  }, [isOk]);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const checkboxHandler = (e) => {
@@ -33,9 +41,6 @@ const ContactListPage = ({
       "Are you sure you want to delete these contacts?",
       "Delete"
     );
-    setContacts(contacts.filter((item) => !selectedItems.includes(item.id)));
-    showToast(`${selectedItems.length} contact(s) deleted`, "success");
-    setSelectedItems([]);
   };
   return (
     <>

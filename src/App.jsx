@@ -12,6 +12,7 @@ const App = () => {
   const [toast, setToast] = useState(null);
   const [modal, setModal] = useState(null);
   const [search, setSearch] = useState("");
+  const [isOk, setIsOk] = useState(false);
 
 
   const showToast = (message, type) => {
@@ -35,7 +36,7 @@ const App = () => {
   }, [contacts]);
   return (
     <>
-      {modal && <Modal title={modal.title} desc={modal.desc} action={modal.action} removeModal={removeModal} />}
+      {modal && <Modal title={modal.title} desc={modal.desc} action={modal.action} removeModal={removeModal} setIsOk={setIsOk} />}
       {toast && (
         <ToastMessage
           message={toast.message}
@@ -52,6 +53,7 @@ const App = () => {
           search={search}
           showToast={showToast}
           showModal={showModal}
+          isOk={isOk}
         />
       )}
       {currentPage === "add-contact" && (
