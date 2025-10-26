@@ -39,6 +39,7 @@ const App = () => {
           contacts={contacts}
           setSearch={setSearch}
           search={search}
+          showToast={showToast}
         />
       )}
       {currentPage === "add-contact" && (
