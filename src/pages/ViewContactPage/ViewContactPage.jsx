@@ -22,7 +22,7 @@ const ViewContactPage = ({
           className="fa-solid fa-arrow-left"
         ></i>
         <i
-          class="fa-solid fa-pen-to-square"
+          className="fa-solid fa-pen-to-square"
           onClick={() => {
             setCurrentPage("edit-contact"), setEditId(id);
           }}
