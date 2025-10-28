@@ -68,6 +68,7 @@ const App = () => {
           setCurrentPage={setCurrentPage}
           setContacts={setContacts}
           showToast={showToast}
+          showModal={showModal}
         />
       )}
 
