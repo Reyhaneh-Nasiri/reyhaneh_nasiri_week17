@@ -1,3 +1,13 @@
+@keyframes showModal {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
 .container {
     position: fixed;
     top: 0;
@@ -12,7 +22,7 @@
     justify-content: center;
 }
 
-.modal{
+.modal {
     width: 95%;
     margin: auto;
     max-width: 600px;
@@ -20,22 +30,23 @@
     padding: 2rem 1.2rem 1rem;
     border-radius: 10px;
     color: #f0f0f0;
+    animation: showModal .3s;
 }
 
-.modal__title{
+.modal__title {
     margin-bottom: 20px;
 }
 
-.modal__desc{
+.modal__desc {
     line-height: 1.5rem;
 }
 
-.modal__btns{
+.modal__btns {
     text-align: right;
     margin-top: 2rem;
 }
 
-.modal__button{
+.modal__button {
     background: none;
     border: none;
     margin-left: 30px;
@@ -43,15 +54,15 @@
     transition: .2s;
 }
 
-.modal__button:first-child{
+.modal__button:first-child {
     color: #5088b8;
 }
 
-.modal__button:last-child{
+.modal__button:last-child {
     color: #bb2124;
 }
 
-.modal__button:hover{
+.modal__button:hover {
     opacity: .9;
     transform: scale(1.1);
 }
