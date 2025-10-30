@@ -1,0 +1,17 @@
+.sortButtons {
+    width: 95%;
+    max-width: 1000px;
+    margin: 80px auto 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.sortButtons button{
+    background-color: transparent;
+    border: 2px solid #5088b8;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+}

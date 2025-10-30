@@ -2,6 +2,7 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import styles from "./ContactListPage.module.css";
 import ContactListToolbar from "@/components/ContactListToolbar/ContactListToolbar";
 import { useState } from "react";
+import SortButtons from "@/components/SortButtons/SortButtons";
 const ContactListPage = ({
   setCurrentPage,
   contacts,
@@ -50,33 +51,36 @@ const ContactListPage = ({
       />
       <SearchBox setSearch={setSearch} search={search} />
       {contacts.length ? (
-        <ul className={styles.contacts}>
-          {contacts
-            .filter((item) => {
-              return search.trim().toLowerCase() === ""
-                ? item
-                : item.name.toLowerCase().includes(search) ||
-                    item.email.toLowerCase().includes(search);
-            })
-            .map((contact) => (
-              <li className={styles.contact} key={contact.id}>
-                <input
-                  type="checkbox"
-                  value={contact.id}
-                  checked={selectedItems.includes(contact.id)}
-                  onChange={checkboxHandler}
-                />
+        <>
+          <SortButtons />
+          <ul className={styles.contacts}>
+            {contacts
+              .filter((item) => {
+                return search.trim().toLowerCase() === ""
+                  ? item
+                  : item.name.toLowerCase().includes(search) ||
+                      item.email.toLowerCase().includes(search);
+              })
+              .map((contact) => (
+                <li className={styles.contact} key={contact.id}>
+                  <input
+                    type="checkbox"
+                    value={contact.id}
+                    checked={selectedItems.includes(contact.id)}
+                    onChange={checkboxHandler}
+                  />
 
-                <div
-                  className={styles.data}
-                  onClick={() => onViewClick(contact.id)}
-                >
-                  <p className={styles.contact__name}>{contact.name}</p>
-                  <p className={styles.contact__email}>{contact.email}</p>
-                </div>
-              </li>
-            ))}
-        </ul>
+                  <div
+                    className={styles.data}
+                    onClick={() => onViewClick(contact.id)}
+                  >
+                    <p className={styles.contact__name}>{contact.name}</p>
+                    <p className={styles.contact__email}>{contact.email}</p>
+                  </div>
+                </li>
+              ))}
+          </ul>
+        </>
       ) : (
         <p className={styles.message}>No contacts exist</p>
       )}
