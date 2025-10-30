@@ -49,33 +49,37 @@ const ContactListPage = ({
         renderModal={renderModal}
       />
       <SearchBox setSearch={setSearch} search={search} />
-      <ul className={styles.contacts}>
-        {contacts
-          .filter((item) => {
-            return search.trim().toLowerCase() === ""
-              ? item
-              : item.name.toLowerCase().includes(search) ||
-                  item.email.toLowerCase().includes(search);
-          })
-          .map((contact) => (
-            <li className={styles.contact} key={contact.id}>
-              <input
-                type="checkbox"
-                value={contact.id}
-                checked={selectedItems.includes(contact.id)}
-                onChange={checkboxHandler}
-              />
+      {contacts.length ? (
+        <ul className={styles.contacts}>
+          {contacts
+            .filter((item) => {
+              return search.trim().toLowerCase() === ""
+                ? item
+                : item.name.toLowerCase().includes(search) ||
+                    item.email.toLowerCase().includes(search);
+            })
+            .map((contact) => (
+              <li className={styles.contact} key={contact.id}>
+                <input
+                  type="checkbox"
+                  value={contact.id}
+                  checked={selectedItems.includes(contact.id)}
+                  onChange={checkboxHandler}
+                />
 
-              <div
-                className={styles.data}
-                onClick={() => onViewClick(contact.id)}
-              >
-                <p className={styles.contact__name}>{contact.name}</p>
-                <p className={styles.contact__email}>{contact.email}</p>
-              </div>
-            </li>
-          ))}
-      </ul>
+                <div
+                  className={styles.data}
+                  onClick={() => onViewClick(contact.id)}
+                >
+                  <p className={styles.contact__name}>{contact.name}</p>
+                  <p className={styles.contact__email}>{contact.email}</p>
+                </div>
+              </li>
+            ))}
+        </ul>
+      ) : (
+        <p className={styles.message}>No contacts exist</p>
+      )}
     </>
   );
 };
