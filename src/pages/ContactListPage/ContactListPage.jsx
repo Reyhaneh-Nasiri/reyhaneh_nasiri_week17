@@ -44,7 +44,26 @@ const ContactListPage = ({
       () => deleteHandler()
     );
   };
-  console.log(sortBy);
+  const filteredContacts = contacts.filter((item) => {
+    const term = search.trim().toLowerCase();
+    return (
+      term === "" ||
+      item.name.toLowerCase().includes(term) ||
+      item.email.toLowerCase().includes(term)
+    );
+  });
+
+  let sortedContacts = [...filteredContacts];
+
+  if (sortBy === "alphabet") {
+    sortedContacts.sort((a, b) =>
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    );
+  } else if (sortBy === "latest-added") {
+    sortedContacts.reverse();
+  } else {
+    sortedContacts;
+  }
   return (
     <>
       <ContactListToolbar
@@ -56,31 +75,23 @@ const ContactListPage = ({
         <>
           <SortButtons sortBy={sortBy} setSortBy={setSortBy} />
           <ul className={styles.contacts}>
-            {contacts
-              .filter((item) => {
-                return search.trim().toLowerCase() === ""
-                  ? item
-                  : item.name.toLowerCase().includes(search) ||
-                      item.email.toLowerCase().includes(search);
-              })
-              .map((contact) => (
-                <li className={styles.contact} key={contact.id}>
-                  <input
-                    type="checkbox"
-                    value={contact.id}
-                    checked={selectedItems.includes(contact.id)}
-                    onChange={checkboxHandler}
-                  />
-
-                  <div
-                    className={styles.data}
-                    onClick={() => onViewClick(contact.id)}
-                  >
-                    <p className={styles.contact__name}>{contact.name}</p>
-                    <p className={styles.contact__email}>{contact.email}</p>
-                  </div>
-                </li>
-              ))}
+            {sortedContacts.map((contact) => (
+              <li className={styles.contact} key={contact.id}>
+                <input
+                  type="checkbox"
+                  value={contact.id}
+                  checked={selectedItems.includes(contact.id)}
+                  onChange={checkboxHandler}
+                />
+                <div
+                  className={styles.data}
+                  onClick={() => onViewClick(contact.id)}
+                >
+                  <p className={styles.contact__name}>{contact.name}</p>
+                  <p className={styles.contact__email}>{contact.email}</p>
+                </div>
+              </li>
+            ))}
           </ul>
         </>
       ) : (
