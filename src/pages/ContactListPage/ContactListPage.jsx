@@ -2,6 +2,7 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import styles from "./ContactListPage.module.css";
 import ContactListToolbar from "@/components/ContactListToolbar/ContactListToolbar";
 import { useState } from "react";
+import SortButtons from "@/components/SortButtons/SortButtons";
 const ContactListPage = ({
   setCurrentPage,
   contacts,
@@ -13,6 +14,7 @@ const ContactListPage = ({
   onViewClick,
 }) => {
   const [selectedItems, setSelectedItems] = useState([]);
+  const [sortBy, setSortBy] = useState("latest-added");
 
   const checkboxHandler = (e) => {
     const isSelected = e.target.checked;
@@ -42,6 +44,26 @@ const ContactListPage = ({
       () => deleteHandler()
     );
   };
+  const filteredContacts = contacts.filter((item) => {
+    const term = search.trim().toLowerCase();
+    return (
+      term === "" ||
+      item.name.toLowerCase().includes(term) ||
+      item.email.toLowerCase().includes(term)
+    );
+  });
+
+  let sortedContacts = [...filteredContacts];
+
+  if (sortBy === "alphabet") {
+    sortedContacts.sort((a, b) =>
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    );
+  } else if (sortBy === "latest-added") {
+    sortedContacts.reverse();
+  } else {
+    sortedContacts;
+  }
   return (
     <>
       <ContactListToolbar
@@ -50,15 +72,10 @@ const ContactListPage = ({
       />
       <SearchBox setSearch={setSearch} search={search} />
       {contacts.length ? (
-        <ul className={styles.contacts}>
-          {contacts
-            .filter((item) => {
-              return search.trim().toLowerCase() === ""
-                ? item
-                : item.name.toLowerCase().includes(search) ||
-                    item.email.toLowerCase().includes(search);
-            })
-            .map((contact) => (
+        <>
+          <SortButtons sortBy={sortBy} setSortBy={setSortBy} />
+          <ul className={styles.contacts}>
+            {sortedContacts.map((contact) => (
               <li className={styles.contact} key={contact.id}>
                 <input
                   type="checkbox"
@@ -66,7 +83,6 @@ const ContactListPage = ({
                   checked={selectedItems.includes(contact.id)}
                   onChange={checkboxHandler}
                 />
-
                 <div
                   className={styles.data}
                   onClick={() => onViewClick(contact.id)}
@@ -76,7 +92,8 @@ const ContactListPage = ({
                 </div>
               </li>
             ))}
-        </ul>
+          </ul>
+        </>
       ) : (
         <p className={styles.message}>No contacts exist</p>
       )}

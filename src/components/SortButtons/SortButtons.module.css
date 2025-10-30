@@ -1,0 +1,28 @@
+.sortButtons {
+    width: 95%;
+    max-width: 1000px;
+    margin: 80px auto 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.sortButtons button{
+    background-color: transparent;
+    border: 2px solid #5088b8;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    transition: .3s;
+}
+
+.sortButtons button:hover{
+    transform: scale(1.05) translateY(-10%);
+}
+
+.sortButtons button.active{
+    background-color: #5088b8;
+    color: #f0f0f0;
+}
