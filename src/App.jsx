@@ -13,14 +13,15 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
   const [viewId, setViewId] = useState(null);
   const [editId, setEditId] = useState(null);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
   const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem("contacts") || "[]")
+    JSON.parse(localStorage.getItem("contacts")) || []
   );
   const [search, setSearch] = useState("");
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [contacts, favorites]);
 
   const { modal, showModal, removeModal } = useModal();
   const { toast, showToast, removeToast } = useToast();
