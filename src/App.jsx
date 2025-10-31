@@ -7,9 +7,10 @@ import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
 import EditContactPage from "./pages/EditContactPage/EditContactPage";
 import useModal from "./hooks/useModal";
 import useToast from "./hooks/useToast";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState("contact-list");
+  const [currentPage, setCurrentPage] = useState("favorites");
   const [viewId, setViewId] = useState(null);
   const [editId, setEditId] = useState(null);
   const [contacts, setContacts] = useState(
@@ -21,7 +22,7 @@ const App = () => {
   }, [contacts]);
 
   const { modal, showModal, removeModal } = useModal();
-  const {toast, showToast, removeToast} = useToast()
+  const { toast, showToast, removeToast } = useToast();
   return (
     <>
       {modal && (
@@ -85,6 +86,7 @@ const App = () => {
           showModal={showModal}
         />
       )}
+      {currentPage === "favorites" && <FavoritesPage />}
     </>
   );
 };
