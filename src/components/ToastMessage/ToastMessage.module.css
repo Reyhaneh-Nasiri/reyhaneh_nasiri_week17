@@ -1,0 +1,90 @@
+@keyframes toastIn {
+  0% { transform: translateX(100%); opacity: 0; }
+  80% { transform: translateX(-5%); opacity: 1; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.toast__data {
+    display: flex;
+    gap: 5px;
+}
+
+.toast_close {
+    opacity: .8;
+    cursor: pointer;
+    font-size: .9rem;
+}
+
+.toast_close:hover {
+    opacity: 1;
+}
+
+.toast {
+    position: fixed;
+    width: 320px;
+    top: .5rem;
+    right: .5rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 12px;
+    border-radius: 5px;
+    gap: 5px;
+    overflow: hidden;
+    animation: toastIn .3s;
+}
+
+.toast::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: green;
+    animation: timeOut 3s linear 1;
+}
+
+@keyframes timeOut {
+    100% {
+        width: 0%;
+    }
+}
+
+.toast.error {
+    background-color: #e4a6a7;
+    background-color: #fecccc;
+    color: #bb2124;
+}
+
+.toast.error::before {
+    background-color: #bb2124;
+}
+
+.toast.success {
+    background-color: #bdf7d1;
+    color: #1ca650;
+}
+
+.toast.success::before {
+    background-color: #1ca650;
+}
+
+.toast.info {
+    background-color: #c1dcfe;
+    color: #2966ec;
+}
+
+.toast.info::before {
+    background-color: #2966ec;
+}
+
+.toast.warning {
+    background-color: #fed8ad;
+    color: #c88808;
+}
+
+.toast.warning::before {
+    background-color: #c88808;
+}
