@@ -90,7 +90,7 @@ const App = () => {
         />
       )}
       {currentPage === "favorites" && (
-        <FavoritesPage />
+        <FavoritesPage favorites={favorites} setCurrentPage={setCurrentPage} />
       )}
     </>
   );

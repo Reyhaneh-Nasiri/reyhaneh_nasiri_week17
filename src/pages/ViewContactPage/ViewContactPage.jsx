@@ -39,7 +39,6 @@ const ViewContactPage = ({
     } else {
       setFavorites((prevData) => prevData.filter((c) => c.id !== contact.id));
     }
-    console.log(favorites);
   };
 
   return (
