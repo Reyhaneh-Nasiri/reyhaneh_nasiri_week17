@@ -39,6 +39,9 @@ const ViewContactPage = ({
           }}
         ></i>
       </div>
+      <button className={styles.favorite}>
+        <i className="fa-regular fa-star"></i>
+      </button>
       <ul className={styles.information}>
         {values.map((value) => {
           if (value !== "id") {
