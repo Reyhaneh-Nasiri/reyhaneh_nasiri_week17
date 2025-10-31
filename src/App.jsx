@@ -7,21 +7,24 @@ import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
 import EditContactPage from "./pages/EditContactPage/EditContactPage";
 import useModal from "./hooks/useModal";
 import useToast from "./hooks/useToast";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
   const [viewId, setViewId] = useState(null);
   const [editId, setEditId] = useState(null);
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
   const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem("contacts") || "[]")
+    JSON.parse(localStorage.getItem("contacts")) || []
   );
   const [search, setSearch] = useState("");
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [contacts, favorites]);
 
   const { modal, showModal, removeModal } = useModal();
-  const {toast, showToast, removeToast} = useToast()
+  const { toast, showToast, removeToast } = useToast();
   return (
     <>
       {modal && (
@@ -73,6 +76,8 @@ const App = () => {
           showToast={showToast}
           setEditId={setEditId}
           showModal={showModal}
+          favorites={favorites}
+          setFavorites={setFavorites}
         />
       )}
       {currentPage === "edit-contact" && (
@@ -84,6 +89,9 @@ const App = () => {
           showToast={showToast}
           showModal={showModal}
         />
+      )}
+      {currentPage === "favorites" && (
+        <FavoritesPage favorites={favorites} setCurrentPage={setCurrentPage} />
       )}
     </>
   );

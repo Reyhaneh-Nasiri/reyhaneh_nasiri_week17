@@ -85,4 +85,7 @@
         transform: scale(1.1);
         background-color: #6088b8e8;
     }
+    .favoritesButton{
+        margin-left: auto;
+    }
 }

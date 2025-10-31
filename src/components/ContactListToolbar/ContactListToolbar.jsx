@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./ContactListToolbar.module.css";
-const ContactListToolbar = ({setCurrentPage, renderModal}) => {
+const ContactListToolbar = ({ setCurrentPage, renderModal }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className={styles.toolbar}>
@@ -11,11 +11,17 @@ const ContactListToolbar = ({setCurrentPage, renderModal}) => {
           transform: `translateY(${isMenuOpen ? "0%" : "50%"})`,
         }}
       >
-        <p className={styles.itemMenu} onClick={() => setCurrentPage("add-contact")}>
+        <p
+          className={styles.itemMenu}
+          onClick={() => setCurrentPage("add-contact")}
+        >
           <i className="fa-solid fa-plus"></i> New contact
         </p>
         <p className={styles.itemMenu} onClick={renderModal}>
           <i className="fa-solid fa-trash"></i> Delete
+        </p>
+        <p className={styles.itemMenu} onClick={() => setCurrentPage("favorites")}>
+          <i className="fa-solid fa-star"></i> Favorites
         </p>
       </div>
       <div
@@ -24,9 +30,15 @@ const ContactListToolbar = ({setCurrentPage, renderModal}) => {
       >
         <i className="fa-solid fa-ellipsis-vertical"></i>
       </div>
-      <button onClick={() => setCurrentPage("add-contact")}><i className="fa-solid fa-user-plus"></i></button>
-      <button onClick={renderModal}><i className="fa-solid fa-trash"></i></button>
-      
+      <button onClick={() => setCurrentPage("add-contact")}>
+        <i className="fa-solid fa-user-plus"></i>
+      </button>
+      <button onClick={renderModal}>
+        <i className="fa-solid fa-trash"></i>
+      </button>
+      <button className={styles.favoritesButton} onClick={() => setCurrentPage("favorites")}>
+        <i className="fa-solid fa-star"></i>
+      </button>
     </div>
   );
 };
