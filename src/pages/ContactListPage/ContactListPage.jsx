@@ -4,7 +4,7 @@ import ContactListToolbar from "@/components/ContactListToolbar/ContactListToolb
 import { useEffect, useState } from "react";
 import SortButtons from "@/components/SortButtons/SortButtons";
 const ContactListPage = ({
-  setCurrentPage,
+  // setCurrentPage,
   contacts,
   setContacts,
   setSearch,
@@ -13,10 +13,12 @@ const ContactListPage = ({
   showModal,
   onViewClick,
   setFavorites,
-  favorites
+  favorites,
 }) => {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [sortBy, setSortBy] = useState(localStorage.getItem("sortBy") || "latest-added");
+  const [sortBy, setSortBy] = useState(
+    localStorage.getItem("sortBy") || "latest-added"
+  );
 
   const checkboxHandler = (e) => {
     const isSelected = e.target.checked;
@@ -71,11 +73,11 @@ const ContactListPage = ({
   useEffect(() => {
     localStorage.setItem("sortBy", sortBy);
   }, [sortBy]);
-  
+
   return (
     <>
       <ContactListToolbar
-        setCurrentPage={setCurrentPage}
+        // setCurrentPage={setCurrentPage}
         renderModal={renderModal}
       />
       <SearchBox setSearch={setSearch} search={search} />

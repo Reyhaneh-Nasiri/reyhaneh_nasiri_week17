@@ -8,10 +8,10 @@ import EditContactPage from "./pages/EditContactPage/EditContactPage";
 import useModal from "./hooks/useModal";
 import useToast from "./hooks/useToast";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState("contact-list");
+  const navigate = useNavigate();
   const [viewId, setViewId] = useState(null);
   const [editId, setEditId] = useState(null);
   const [favorites, setFavorites] = useState(
@@ -46,13 +46,12 @@ const App = () => {
           onClose={removeToast}
         />
       )}
-      <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Navigate to="/contact-list" />} />
           <Route
             path="/contact-list"
             element={
               <ContactListPage
-                setCurrentPage={setCurrentPage}
                 setContacts={setContacts}
                 contacts={contacts}
                 setSearch={setSearch}
@@ -63,7 +62,7 @@ const App = () => {
                 setFavorites={setFavorites}
                 onViewClick={(id) => {
                   setViewId(id);
-                  setCurrentPage("view-contact");
+                  navigate("/view-contact");
                 }}
               />
             }
@@ -72,7 +71,6 @@ const App = () => {
             path="add-contact"
             element={
               <AddContactPage
-                setCurrentPage={setCurrentPage}
                 setContacts={setContacts}
                 showToast={showToast}
                 showModal={showModal}
@@ -85,7 +83,6 @@ const App = () => {
               <ViewContactPage
                 id={viewId}
                 contacts={contacts}
-                setCurrentPage={setCurrentPage}
                 setContacts={setContacts}
                 showToast={showToast}
                 setEditId={setEditId}
@@ -99,7 +96,6 @@ const App = () => {
             path="edit-contact"
             element={
               <EditContactPage
-                setCurrentPage={setCurrentPage}
                 contacts={contacts}
                 editId={editId}
                 setContacts={setContacts}
@@ -114,16 +110,14 @@ const App = () => {
             element={
               <FavoritesPage
                 favorites={favorites}
-                setCurrentPage={setCurrentPage}
                 onViewClick={(id) => {
                   setViewId(id);
-                  setCurrentPage("view-contact");
+                  navigate("/view-contact");
                 }}
               />
             }
           />
         </Routes>
-      </BrowserRouter>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import ContactForm from "@/components/ContactForm/ContactForm";
+import { useNavigate } from "react-router-dom";
 
 const EditContactPage = ({
-  setCurrentPage,
   editId,
   contacts,
   setContacts,
@@ -9,6 +9,8 @@ const EditContactPage = ({
   showModal,
   setFavorites,
 }) => {
+  const navigate = useNavigate();
+
   const contact = contacts.find((contact) => contact.id == editId);
 
   const editHandler = (editedValues) => {
@@ -18,7 +20,7 @@ const EditContactPage = ({
     setFavorites((prev) =>
       prev.map((c) => (c.id === contact.id ? { ...c, ...editedValues } : c))
     );
-    setCurrentPage("view-contact");
+    navigate("/view-contact");
     showToast("Contact edited successfully", "success");
   };
 
@@ -39,7 +41,7 @@ const EditContactPage = ({
         job: contact.job,
       }}
       onSubmit={renderModal}
-      onCancel={() => setCurrentPage("view-contact")}
+      onCancel={() => navigate("/view-contact")}
       buttonText="Edit"
       title="Edit"
     />

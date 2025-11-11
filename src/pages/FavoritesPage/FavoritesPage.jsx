@@ -1,11 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./FavoritesPage.module.css";
-const FavoritesPage = ({ favorites, setCurrentPage, onViewClick }) => {
+const FavoritesPage = ({ favorites, onViewClick }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
           <i
-            onClick={() => setCurrentPage("contact-list")}
+            onClick={() => navigate("/contact-list")}
             className="fa-solid fa-arrow-left"
           ></i>
         </div>

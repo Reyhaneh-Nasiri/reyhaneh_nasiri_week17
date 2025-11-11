@@ -1,15 +1,13 @@
 import ContactForm from "@/components/ContactForm/ContactForm";
+import { useNavigate } from "react-router-dom";
 
-const AddContactPage = ({
-  setCurrentPage,
-  setContacts,
-  showToast,
-  showModal,
-}) => {
+const AddContactPage = ({ setContacts, showToast, showModal }) => {
+  const navigate = useNavigate();
+
   const addHandler = (newContact) => {
     const id = Date.now();
     setContacts((prev) => [...prev, { id, ...newContact }]);
-    setCurrentPage("contact-list");
+    navigate("/contact-list");
     showToast("Contact added successfully", "success");
   };
 
@@ -26,7 +24,7 @@ const AddContactPage = ({
     <ContactForm
       initialValues={{ name: "", email: "", phone: "", job: "" }}
       onSubmit={renderModal}
-      onCancel={() => setCurrentPage("contact-list")}
+      onCancel={() => navigate("/contact-list")}
       buttonText="Save"
       title="Add"
     />
