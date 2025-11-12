@@ -1,14 +1,12 @@
 import ContactForm from "@/components/ContactForm/ContactForm";
+import { ContactsContext } from "@/components/context/ContactsContext";
+import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const EditContactPage = ({
-  contacts,
-  setContacts,
-  showToast,
-  showModal,
-  setFavorites,
-}) => {
-  const {contactId} = useParams()
+const EditContactPage = ({ showToast, showModal }) => {
+  const { contacts, setContacts, setFavorites } = useContext(ContactsContext);
+
+  const { contactId } = useParams();
   const navigate = useNavigate();
 
   const contact = contacts.find((contact) => contact.id == contactId);

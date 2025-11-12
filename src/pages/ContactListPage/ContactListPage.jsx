@@ -1,19 +1,17 @@
 import SearchBox from "@/components/SearchBox/SearchBox";
 import styles from "./ContactListPage.module.css";
 import ContactListToolbar from "@/components/ContactListToolbar/ContactListToolbar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SortButtons from "@/components/SortButtons/SortButtons";
 import { Link } from "react-router-dom";
+import { ContactsContext } from "@/components/context/ContactsContext";
 const ContactListPage = ({
-  contacts,
-  setContacts,
   setSearch,
   search,
   showToast,
   showModal,
-  setFavorites,
-  favorites,
 }) => {
+  const { contacts, setContacts ,favorites, setFavorites} = useContext(ContactsContext);
   const [selectedItems, setSelectedItems] = useState([]);
   const [sortBy, setSortBy] = useState(
     localStorage.getItem("sortBy") || "latest-added"

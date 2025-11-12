@@ -1,15 +1,12 @@
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import styles from "./ViewContactPage.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-const ViewContactPage = ({
-  contacts,
-  setContacts,
-  showToast,
-  showModal,
-  setFavorites,
-  favorites,
-}) => {
+import { ContactsContext } from "@/components/context/ContactsContext";
+const ViewContactPage = ({ showToast, showModal }) => {
+  const { contacts, setContacts, favorites, setFavorites } =
+    useContext(ContactsContext);
+
   const { contactId } = useParams();
   const navigate = useNavigate();
 
