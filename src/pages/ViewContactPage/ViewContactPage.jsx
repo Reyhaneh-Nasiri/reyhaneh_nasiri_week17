@@ -1,10 +1,11 @@
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import styles from "./ViewContactPage.module.css";
-import { memo, useContext, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContactsContext } from "@/components/context/ContactsContext";
 import { useModal } from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
+import axios from "axios";
 const ViewContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
@@ -15,11 +16,14 @@ const ViewContactPage = () => {
   const { contactId } = useParams();
   const navigate = useNavigate();
 
-  const [isFavorite, setIsFavorite] = useState(
-    favorites.find((contact) => contact.id == contactId)
-  );
-  const contact = contacts.find((contact) => contact.id == contactId);
+  const [contact, setContact] = useState({});
   const values = Object.keys(contact);
+
+  useEffect(() => {
+    axios(`http://localhost:3000/contacts/${contactId}`).then((res) =>
+      setContact(res.data)
+    );
+  }, [contact]);
   const deleteHandler = () => {
     setContacts(contacts.filter((contact) => contact.id != contactId));
     setFavorites(favorites.filter((f) => f.id != contactId));
@@ -37,12 +41,12 @@ const ViewContactPage = () => {
   };
 
   const favoriteHandler = () => {
-    setIsFavorite(!isFavorite);
-    if (!isFavorite) {
-      setFavorites(() => [...favorites, contact]);
-    } else {
-      setFavorites((prevData) => prevData.filter((c) => c.id !== contact.id));
-    }
+    axios
+      .patch(`http://localhost:3000/contacts/${contactId}`, {
+        isFavorite: !contact.isFavorite,
+      })
+      .then((res) => console.log(res))
+      .catch(error => console.log(error))
   };
 
   return (
@@ -58,10 +62,10 @@ const ViewContactPage = () => {
         ></i>
       </div>
       <button
-        className={`${styles.favorite} ${isFavorite && styles.active}`}
+        className={`${styles.favorite} ${contact.isFavorite && styles.active}`}
         onClick={favoriteHandler}
       >
-        {isFavorite ? (
+        {contact.isFavorite ? (
           <i className="fa-solid fa-star"></i>
         ) : (
           <i className="fa-regular fa-star"></i>
@@ -69,7 +73,7 @@ const ViewContactPage = () => {
       </button>
       <ul className={styles.information}>
         {values.map((value) => {
-          if (value !== "id") {
+          if (value !== "id" && value !== "isFavorite") {
             return (
               <li key={value}>
                 {capitalizeFirstLetter(value)}: {contact[value.toLowerCase()]}

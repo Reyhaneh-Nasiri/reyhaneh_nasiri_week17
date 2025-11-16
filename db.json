@@ -5,7 +5,8 @@
       "name": "contact1",
       "email": "contact1@gmail.com",
       "phone": "",
-      "job": ""
+      "job": "",
+      "isFavorite": true
     },
     {
       "id": "03e7",
@@ -13,7 +14,7 @@
       "email": "6@gmail.com",
       "phone": "",
       "job": "",
-      "isFavorite": false
+      "isFavorite": true
     }
   ]
 }
