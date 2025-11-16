@@ -1,19 +1,22 @@
+import axios from "axios";
 import { createContext, useEffect, useMemo, useState } from "react";
 
 export const ContactsContext = createContext();
 
 const ContactsProvider = ({ children }) => {
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem("contacts")) || []
-  );
+  const [contacts, setContacts] = useState([]);
   const [favorites, setFavorites] = useState(
     JSON.parse(localStorage.getItem("favorites")) || []
   );
 
   useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
+    const fetchContacts = async () => {
+      axios("http://localhost:3000/contacts")
+        .then((res) => setContacts(res));
+    };
+    fetchContacts();
     localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [contacts, favorites]);
+  }, [favorites]);
 
   const value = useMemo(
     () => ({
