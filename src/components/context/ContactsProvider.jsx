@@ -1,15 +1,15 @@
 import axios from "axios";
-import { createContext, useEffect, useMemo, useState } from "react";
-
-export const ContactsContext = createContext();
+import { useEffect, useMemo, useState } from "react";
+import ContactsContext from "./ContactsContext";
 
 const ContactsProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
     const fetchContacts = async () => {
-      axios("http://localhost:3000/contacts")
-        .then((res) => setContacts(res.data));
+      axios("http://localhost:3000/contacts").then((res) =>
+        setContacts(res.data)
+      );
     };
     fetchContacts();
   }, [contacts]);
