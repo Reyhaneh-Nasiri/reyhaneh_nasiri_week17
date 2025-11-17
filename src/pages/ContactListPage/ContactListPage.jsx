@@ -80,7 +80,7 @@ const ContactListPage = () => {
     <>
       <ContactListToolbar renderModal={renderModal} />
       <SearchBox setSearch={setSearch} search={search} />
-      {contacts.length ? (
+      {(contacts.length && sortedContacts.length)  ? (
         <>
           <SortButtons sortBy={sortBy} setSortBy={setSortBy} />
           <ul className={styles.contacts}>
