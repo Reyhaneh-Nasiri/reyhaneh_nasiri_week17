@@ -20,7 +20,7 @@ const FavoritesPage = () => {
           <h3>Favorites</h3>
         </div>
       </div>
-      {contacts.length ? (
+      {contacts.find(contact => contact.isFavorite) ? (
         <ul className={styles.contacts}>
           {contacts.filter(contact => contact.isFavorite).map((contact) => (
             <Link to={`/view-contact/${contact.id}`} key={contact.id}>
