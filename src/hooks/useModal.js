@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ModalContext } from "@/components/context/ModalContext";
+import { ModalContext } from "@/components/contexts/ModalContext";
 
 export function useModal() {
   return useContext(ModalContext);
