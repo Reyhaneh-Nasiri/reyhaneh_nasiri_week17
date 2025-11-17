@@ -2,13 +2,14 @@ import ContactForm from "@/components/ContactForm/ContactForm";
 import { ContactsContext } from "@/components/context/ContactsContext";
 import { useModal } from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
+import axios from "axios";
 import { memo, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { contacts, setContacts, setFavorites } = useContext(ContactsContext);
+  const { contacts } = useContext(ContactsContext);
 
   const { contactId } = useParams();
   const navigate = useNavigate();
@@ -16,14 +17,13 @@ const EditContactPage = () => {
   const contact = contacts.find((contact) => contact.id == contactId);
 
   const editHandler = (editedValues) => {
-    setContacts((prev) =>
-      prev.map((c) => (c.id === contact.id ? { ...c, ...editedValues } : c))
-    );
-    setFavorites((prev) =>
-      prev.map((c) => (c.id === contact.id ? { ...c, ...editedValues } : c))
-    );
-    navigate(`/view-contact/${contactId}`);
-    showToast("Contact edited successfully", "success");
+    axios
+      .patch(`http://localhost:3000/contacts/${contactId}`, editedValues)
+      .then(() => {
+        navigate(`/view-contact/${contactId}`);
+        showToast("Contact edited successfully", "success");
+      })
+      .catch((error) => console.log(error));
   };
 
   const renderModal = (editedValues) => {
