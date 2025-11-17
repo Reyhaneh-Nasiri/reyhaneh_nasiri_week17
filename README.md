@@ -1,6 +1,5 @@
 # Contact App
 
-
 ## Tech Stack
 - React  
 - Vite 
