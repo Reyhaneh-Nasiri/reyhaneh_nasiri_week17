@@ -7,7 +7,7 @@ const ContactsProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchContacts = async () => {
-      axios("http://localhost:3000/contacts").then((res) =>
+      axios(import.meta.env.VITE_BASE_URL).then((res) =>
         setContacts(res.data)
       );
     };

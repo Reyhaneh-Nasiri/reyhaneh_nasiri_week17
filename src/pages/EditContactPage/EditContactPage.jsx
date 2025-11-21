@@ -18,7 +18,7 @@ const EditContactPage = () => {
 
   const editHandler = (editedValues) => {
     axios
-      .patch(`http://localhost:3000/contacts/${contactId}`, editedValues)
+      .patch(`${import.meta.env.VITE_BASE_URL}${contactId}`, editedValues)
       .then(() => {
         navigate(`/view-contact/${contactId}`);
         showToast("Contact edited successfully", "success");

@@ -16,16 +16,14 @@ const ViewContactPage = () => {
   const values = Object.keys(contact);
 
   useEffect(() => {
-    axios(`http://localhost:3000/contacts/${contactId}`).then((res) =>
+    axios(`${import.meta.env.VITE_BASE_URL}${contactId}`).then((res) =>
       setContact(res.data)
     );
   }, []);
   const deleteHandler = () => {
     const deleteContact = async () => {
       try {
-        const res = await axios.delete(
-          `http://localhost:3000/contacts/${contactId}`
-        );
+        const res = await axios.delete(import.meta.env.VITE_BASE_URL);
         if (res.status == 200) {
           navigate("/contact-list");
           showToast("Contact deleted", "success");
@@ -48,7 +46,7 @@ const ViewContactPage = () => {
 
   const favoriteHandler = () => {
     axios
-      .patch(`http://localhost:3000/contacts/${contactId}`, {
+      .patch(`${import.meta.env.VITE_BASE_URL}${contactId}`, {
         isFavorite: !contact.isFavorite,
       })
       .then((res) => setContact(res.data))

@@ -32,7 +32,7 @@ const ContactListPage = () => {
   const deleteHandler = () => {
     selectedItems.map((id) => {
       axios
-        .delete(`http://localhost:3000/contacts/${id}`)
+        .delete(`${import.meta.env.VITE_BASE_URL}${id}`)
         .then((res) => console.log(res));
     });
     showToast(`${selectedItems.length} contact(s) deleted`, "success");
@@ -80,7 +80,7 @@ const ContactListPage = () => {
     <>
       <ContactListToolbar renderModal={renderModal} />
       <SearchBox setSearch={setSearch} search={search} />
-      {(contacts.length && sortedContacts.length)  ? (
+      {contacts.length && sortedContacts.length ? (
         <>
           <SortButtons sortBy={sortBy} setSortBy={setSortBy} />
           <ul className={styles.contacts}>
