@@ -37,10 +37,10 @@ const EditContactPage = () => {
   return (
     <ContactForm
       initialValues={{
-        name: contact.name,
-        email: contact.email,
-        phone: contact.phone,
-        job: contact.job,
+        name: contact?.name,
+        email: contact?.email,
+        phone: contact?.phone,
+        job: contact?.job,
       }}
       onSubmit={renderModal}
       onCancel={() => navigate(`/view-contact/${contactId}`)}
