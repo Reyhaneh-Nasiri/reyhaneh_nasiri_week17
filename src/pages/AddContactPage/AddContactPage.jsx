@@ -10,21 +10,20 @@ import { useToast } from "@/hooks/useToast";
 const AddContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const {setContacts} = useContacts()
+  const { dispatch } = useContacts();
   const navigate = useNavigate();
-
 
   const addHandler = async (newContact) => {
     try {
-      const res = await axios.post(
-        "http://localhost:3000/contacts",
-        {...newContact, isFavorite: false}
-      );
-      setContacts(contacts => [...contacts, res.data])
+      const res = await axios.post("http://localhost:3000/contacts", {
+        ...newContact,
+        isFavorite: false,
+      });
+      dispatch({ type: "ADD_CONTACT_SUCCESS", payload: res.data });
       navigate("/contact-list");
       showToast("Contact added successfully", "success");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

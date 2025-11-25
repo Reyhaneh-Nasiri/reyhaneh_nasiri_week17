@@ -13,7 +13,7 @@ const ContactListPage = () => {
 
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { contacts, setContacts } = useContacts();
+  const { state, dispatch } = useContacts();
   const [selectedItems, setSelectedItems] = useState([]);
   const [sortBy, setSortBy] = useState(
     localStorage.getItem("sortBy") || "latest-added"
@@ -29,13 +29,17 @@ const ContactListPage = () => {
     }
   };
 
-  const deleteHandler = () => {
-    selectedItems.map((id) => {
-      axios.delete(`${import.meta.env.VITE_BASE_URL}${id}`).then((res) => {
-        setContacts((contacts) =>
-          contacts.filter((contact) => contact.id !== res.data.id)
-        );
-      });
+  const multipleDeleteHandler = () => {
+    selectedItems.map(async (id) => {
+      try {
+        const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}${id}`);
+        dispatch({
+          type: "MULTIPLE_DELETE_CONTACT_SUCCESS",
+          payload: res.data.id,
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
     });
     showToast(`${selectedItems.length} contact(s) deleted`, "success");
     setSelectedItems([]);
@@ -50,10 +54,10 @@ const ContactListPage = () => {
       `Delete ${selectedItems.length} contact(s)`,
       "Are you sure you want to delete these contacts?",
       "Delete",
-      () => deleteHandler()
+      () => multipleDeleteHandler()
     );
   };
-  const filteredContacts = contacts.filter((item) => {
+  const filteredContacts = state.contacts.filter((item) => {
     const term = search.trim().toLowerCase();
     return (
       term === "" ||
@@ -82,7 +86,7 @@ const ContactListPage = () => {
     <>
       <ContactListToolbar renderModal={renderModal} />
       <SearchBox setSearch={setSearch} search={search} />
-      {contacts.length && sortedContacts.length ? (
+      {state.contacts.length && sortedContacts.length ? (
         <>
           <SortButtons sortBy={sortBy} setSortBy={setSortBy} />
           <ul className={styles.contacts}>

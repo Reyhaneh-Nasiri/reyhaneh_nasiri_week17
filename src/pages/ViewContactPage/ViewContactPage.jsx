@@ -9,7 +9,7 @@ import { useContacts } from "@/hooks/useContacts";
 const ViewContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { setContacts } = useContacts();
+  const { dispatch } = useContacts();
 
   const { contactId } = useParams();
   const navigate = useNavigate();
@@ -22,24 +22,19 @@ const ViewContactPage = () => {
       setContact(res.data)
     );
   }, []);
-  const deleteHandler = () => {
-    const deleteContact = async () => {
-      try {
-        const res = await axios.delete(
-          `${import.meta.env.VITE_BASE_URL}${contactId}`
-        );
-        if (res.status == 200) {
-          setContacts((contacts) =>
-            contacts.filter((contact) => contact.id !== res.data.id)
-          );
-          navigate("/contact-list");
-          showToast("Contact deleted", "success");
-        }
-      } catch (error) {
-        console.log(error);
+  const deleteHandler = async () => {
+    try {
+      const res = await axios.delete(
+        `${import.meta.env.VITE_BASE_URL}${contactId}`
+      );
+      if (res.status == 200) {
+        dispatch({ type: "DELETE_CONTACT_SUCCESS", payload: res.data.id });
+        navigate("/contact-list");
+        showToast("Contact deleted", "success");
       }
-    };
-    deleteContact();
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const renderModal = () => {
@@ -57,14 +52,8 @@ const ViewContactPage = () => {
         isFavorite: !contact.isFavorite,
       })
       .then((res) => {
-        setContact(res.data)
-        setContacts((contacts) =>
-          contacts.map((contact) =>
-            contact.id == contactId
-              ? Object.assign({}, contact, res.data)
-              : contact
-          )
-        );
+        setContact(res.data);
+        dispatch({ type: "FAVORITE_CONTACT_SUCCESS", payload: res.data });
       })
       .catch((error) => console.log(error));
   };

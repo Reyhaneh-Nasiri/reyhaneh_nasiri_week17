@@ -9,28 +9,28 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { contacts, setContacts } = useContacts();
+  const { state, dispatch } = useContacts();
 
   const { contactId } = useParams();
   const navigate = useNavigate();
 
-  const contact = contacts.find((contact) => contact.id == contactId);
+  const contact = state.contacts.find((contact) => contact.id == contactId);
 
-  const editHandler = (editedValues) => {
-    axios
-      .patch(`${import.meta.env.VITE_BASE_URL}${contactId}`, editedValues)
-      .then((res) => {
-        setContacts((contacts) =>
-          contacts.map((contact) =>
-            contact.id == contactId
-              ? Object.assign({}, contact, res.data)
-              : contact
-          )
-        );
-        navigate(`/view-contact/${contactId}`);
-        showToast("Contact edited successfully", "success");
-      })
-      .catch((error) => console.log(error));
+  const editHandler = async (editedValues) => {
+    try {
+      const res = await axios.patch(
+        `${import.meta.env.VITE_BASE_URL}${contactId}`,
+        editedValues
+      );
+      dispatch({
+        type: "EDIT_CONTACT_SUCCESS",
+        payload: { data: res.data, id: contactId },
+      });
+      navigate(`/view-contact/${contactId}`);
+      showToast("Contact edited successfully", "success");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const renderModal = (editedValues) => {
